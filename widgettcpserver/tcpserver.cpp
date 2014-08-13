@@ -36,25 +36,43 @@ void TcpServer::acceptConnection()
 
 void TcpServer::startRead()
 {
+    /*
     QTcpSocket *socketFromSender =static_cast<QTcpSocket*>(sender());
     QByteArray readContent = socketFromSender->readAll();
     qDebug() << readContent;
     socketFromSender->write(readContent);
+    */
 
-    //QByteArray readContent = socketFromSender->readAll();
-    //string contentString = readContent.constData();
-    //cout << contentString;
+    QByteArray readContent = qTcpSocket->readAll();
+    qDebug() << readContent;
 
-    //socketFromSender->write(QString("OHYEAH BITCH").toUtf8());
+    qTcpSocket->write(readContent);
 
+/*
+    string stdString = "I am Very HAPPY!";
+    QByteArray byteArray(stdString.c_str(), stdString.length());
+
+    quint64 some64 = qTcpSocket->write(byteArray);
+    qDebug() << some64;
+*/
 }
 
 void TcpServer::writeSomething()
 {
-    qDebug() << "writeSomething()...";
+    /*qDebug() << "writeSomething()...";
     QByteArray testByteArary("oh yeeeeeah WORKING!");
     qTcpSocket->write(testByteArary);
+    bool ok = qTcpSocket->flush();
+    qDebug() << ok;*/
 
+    string stdString = "I am Very HAPPY!";
+    QByteArray byteArray(stdString.c_str(), stdString.length());
+
+    quint64 some64 = qTcpSocket->write(byteArray);
+    qDebug() << some64;
+
+    bool ok = qTcpSocket->flush();
+    qDebug() << ok;
 }
 
 void TcpServer::disconnected()

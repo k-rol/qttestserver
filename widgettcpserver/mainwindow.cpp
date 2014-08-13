@@ -31,4 +31,6 @@ void MainWindow::on_sendTextButton_clicked()
     socket->write(QByteArray("Something Sent"));
     */
     tcpserver->writeSomething();
+
+
 }
