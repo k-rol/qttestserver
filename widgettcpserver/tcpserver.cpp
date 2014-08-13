@@ -1,15 +1,23 @@
 #include "tcpserver.h"
 #include <iostream>
 #include <QtNetwork>
+#include <QDebug>
+
 
 using namespace std;
 
 
 TcpServer::TcpServer(QObject *parent) : QObject(parent), qTcpServer(0)
 {
+    qDebug() << "TcpServer instance created.";
+}
+
+void TcpServer::startService()
+{
     qTcpServer = new QTcpServer(this);
     connect(qTcpServer, SIGNAL(newConnection()),this, SLOT(acceptConnection()));
     qTcpServer->listen(QHostAddress::Any, 51345);
+    qDebug() << "Listening to port 51345 ...";
 }
 
 void TcpServer::acceptConnection()
@@ -28,20 +36,23 @@ void TcpServer::acceptConnection()
 
 void TcpServer::startRead()
 {
-    QByteArray readContent = qTcpSocket->readAll();
-    string contentString = readContent.constData();
-    cout << contentString;
+    QTcpSocket *socketFromSender =static_cast<QTcpSocket*>(sender());
+    QByteArray readContent = socketFromSender->readAll();
+    qDebug() << readContent;
+    socketFromSender->write(readContent);
 
-    qTcpSocket->write(QString("OHYEAH BITCH").toUtf8());
+    //QByteArray readContent = socketFromSender->readAll();
+    //string contentString = readContent.constData();
+    //cout << contentString;
+
+    //socketFromSender->write(QString("OHYEAH BITCH").toUtf8());
 
 }
 
 void TcpServer::writeSomething()
 {
-    string test;
-    cout << "Write something: ";
-    cin >> test;
-    QByteArray testByteArary(test.c_str(),test.length());
+    qDebug() << "writeSomething()...";
+    QByteArray testByteArary("oh yeeeeeah WORKING!");
     qTcpSocket->write(testByteArary);
 
 }
@@ -53,6 +64,8 @@ void TcpServer::disconnected()
 
 TcpServer::~TcpServer()
 {
-    delete qTcpSocket;
-    qTcpServer->close();
+//    delete qTcpSocket;
+//    qTcpServer->close();
+    qDebug() << "TcpServer instance deleted";
 }
+

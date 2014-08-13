@@ -20,5 +20,3 @@ SOURCES += main.cpp \
 
 HEADERS += \
     tcpserver.h
-
-OTHER_FILES +=

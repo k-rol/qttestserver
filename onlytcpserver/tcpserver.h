@@ -3,8 +3,10 @@
 
 #include <QObject>
 
+
 class QTcpServer;
 class QTcpSocket;
+
 
 
 class TcpServer : public QObject
@@ -23,6 +25,7 @@ private slots:
 private:
     QTcpServer *qTcpServer;
     QTcpSocket *qTcpSocket;
+
 
 };
 
