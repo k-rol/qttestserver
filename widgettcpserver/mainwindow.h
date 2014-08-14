@@ -14,6 +14,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void updateText(QByteArray &readContant);
     ~MainWindow();
 
 private:
@@ -24,6 +25,8 @@ private slots:
 
 void on_listenButton_clicked();
 void on_sendTextButton_clicked();
+void on_disconnectButton_clicked();
+void on_stopListenButton_clicked();
 };
 
 #endif // MAINWINDOW_H

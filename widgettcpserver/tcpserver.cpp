@@ -2,7 +2,8 @@
 #include <iostream>
 #include <QtNetwork>
 #include <QDebug>
-
+#include <ui_mainwindow.h>
+#include <mainwindow.h>
 
 using namespace std;
 
@@ -30,49 +31,49 @@ void TcpServer::acceptConnection()
 
     connect(qTcpSocket, SIGNAL(readyRead()),this, SLOT(startRead()));
     connect(qTcpSocket, SIGNAL(disconnected()),this,SLOT(disconnected()));
+    //connect(qTcpSocket, SIGNAL(aboutToClose()),this, SLOT(aboutToDisconnect());
 
-    //writeSomething();
 }
 
 void TcpServer::startRead()
 {
-    /*
-    QTcpSocket *socketFromSender =static_cast<QTcpSocket*>(sender());
-    QByteArray readContent = socketFromSender->readAll();
-    qDebug() << readContent;
-    socketFromSender->write(readContent);
-    */
 
     QByteArray readContent = qTcpSocket->readAll();
     qDebug() << readContent;
 
-    qTcpSocket->write(readContent);
+    MainWindow *instanceMainWindow = static_cast<MainWindow*>(this->parent());
+    instanceMainWindow->updateText(readContent);
 
-/*
-    string stdString = "I am Very HAPPY!";
-    QByteArray byteArray(stdString.c_str(), stdString.length());
-
-    quint64 some64 = qTcpSocket->write(byteArray);
-    qDebug() << some64;
-*/
 }
 
-void TcpServer::writeSomething()
+void TcpServer::nothingreally()
 {
-    /*qDebug() << "writeSomething()...";
-    QByteArray testByteArary("oh yeeeeeah WORKING!");
-    qTcpSocket->write(testByteArary);
-    bool ok = qTcpSocket->flush();
-    qDebug() << ok;*/
+    qDebug() << "NothingReally...";
+}
 
-    string stdString = "I am Very HAPPY!";
-    QByteArray byteArray(stdString.c_str(), stdString.length());
+void TcpServer::writeSomething(string textToSend)
+{
+    QByteArray byteArray(textToSend.c_str(),textToSend.length());
+    qTcpSocket->write(byteArray);
+}
 
-    quint64 some64 = qTcpSocket->write(byteArray);
-    qDebug() << some64;
+//Stops listening when button is pressed
+void TcpServer::stopListening()
+{
+    if (qTcpServer->isListening())
+    {
+        qTcpServer->close();
+    }
+}
 
-    bool ok = qTcpSocket->flush();
-    qDebug() << ok;
+//Disconnect current connection
+void TcpServer::disconnectIt()
+{
+    if (qTcpSocket->isOpen())
+    {
+        writeSomething("CMD DISCONNECT");
+        qTcpSocket->close();
+    }
 }
 
 void TcpServer::disconnected()

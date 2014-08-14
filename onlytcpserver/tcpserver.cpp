@@ -41,12 +41,12 @@ void TcpServer::startRead()
 
 }
 
-void TcpServer::writeSomething()
+void TcpServer::writeSomething(string textToSend)
 {
     string test;
     cout << "Write something: ";
     cin >> test;
-    QByteArray testByteArary(test.c_str(),test.length());
+    QByteArray testByteArary(test.c_str() + "\n\r",test.length());
     qTcpSocket->write(testByteArary);
 
 }
