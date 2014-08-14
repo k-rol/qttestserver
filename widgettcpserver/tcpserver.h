@@ -15,7 +15,8 @@ class TcpServer : public QObject
     Q_OBJECT
 public:
     TcpServer(QObject *parent = 0);
-    void startService();
+    void startListening(int port);
+    void connectToHost(QString &ipAddressHost, int &port);
     void writeSomething(string textToSend);
     void disconnectIt();
     void stopListening();
@@ -23,11 +24,17 @@ public:
 
 private slots:
     void acceptConnection();
+    void connectionSignals();
     void startRead();
     void disconnected();
     void nothingreally();
+    void aboutToDisconnect();
 
 private:
+    void setUIButtons(QString set);
+    QString trimText(QByteArray &toTrim);
+    bool IsACommand(QByteArray &possibleCommand);
+    void updateUiText(QString textToSend);
     QTcpServer *qTcpServer;
     QTcpSocket *qTcpSocket;
 

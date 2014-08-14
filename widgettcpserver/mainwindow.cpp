@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     tcpserver = new TcpServer(this);
+    setDisconnected();
+    setNotListening();
 }
 
 MainWindow::~MainWindow()
@@ -19,28 +21,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::updateText(QByteArray &readContent)
+void MainWindow::updateText(QString &readContent)
 {
-    QString textToAdd = QString(readContent);
+    ui->chatTextbox->appendPlainText(readContent);
+}
 
-    if (textToAdd.endsWith("\n"))
-    {
-        textToAdd.remove(textToAdd.length()-1,1);
-    }
-    else if (textToAdd.endsWith("\r\n") || textToAdd.endsWith("\n\r"))
-    {
-        textToAdd.remove(textToAdd.length()-2,2);
-    }
-
-    ui->chatTextbox->appendPlainText(textToAdd.trimmed());
+void MainWindow::systemMessages(QString msgSystem)
+{
+    ui->chatTextbox->appendPlainText(msgSystem);
 }
 
 void MainWindow::on_listenButton_clicked()
 {
-    qDebug() << "THAT BITCH!";
-    tcpserver->startService();
-    ui->chatTextbox->appendPlainText("Listening to port 51345 ...");
-
+    tcpserver->startListening(ui->portTextBox->text().toInt());
 }
 
 void MainWindow::on_sendTextButton_clicked()
@@ -58,8 +51,77 @@ void MainWindow::on_sendTextButton_clicked()
     }
 
     ui->chatTextbox->appendPlainText(textToAdd.trimmed());
+    ui->sendTextBox->clear();
 //
 
+}
+
+/*
+ *
+*/
+void MainWindow::setButtonEnabilities(QString set)
+{
+    if (set == "setDisconnected") {
+        setDisconnected();
+    }
+    else if (set == "setConnected") {
+        setConnected();
+    }
+    else if (set == "setListening") {
+        setListening();
+    }
+    else if (set == "setNotListening") {
+        setNotListening();
+    }
+    else {
+        qDebug() << "SetButton command not recognized.";
+    }
+}
+
+/*
+ * Set all buttons to reflect a Disconnected state
+*/
+void MainWindow::setDisconnected()
+{
+    ui->disconnectButton->setEnabled(false);
+    ui->sendTextButton->setEnabled(false);
+    ui->connectButton->setEnabled(true);
+    ui->portTextBox->setEnabled(true);
+    ui->ipAddressTextBox->setEnabled(true);
+}
+
+/*
+ * Set all buttons to reflect a Connected state
+*/
+void MainWindow::setConnected()
+{
+    ui->disconnectButton->setEnabled(true);
+    ui->sendTextButton->setEnabled(true);
+    ui->connectButton->setEnabled(false);
+    ui->portTextBox->setEnabled(false);
+    ui->ipAddressTextBox->setEnabled(false);
+}
+
+/*
+ * Set all buttons to reflect a Listening state
+*/
+void MainWindow::setListening()
+{
+    ui->listenButton->setEnabled(false);
+    ui->stopListenButton->setEnabled(true);
+    ui->portTextBox->setEnabled(false);
+    ui->ipAddressTextBox->setEnabled(false);
+}
+
+/*
+ * Set all buttons to reflect a Not Listening state
+*/
+void MainWindow::setNotListening()
+{
+    ui->listenButton->setEnabled(true);
+    ui->stopListenButton->setEnabled(false);
+    ui->portTextBox->setEnabled(true);
+    ui->ipAddressTextBox->setEnabled(true);
 }
 
 void MainWindow::on_disconnectButton_clicked()
@@ -70,4 +132,11 @@ void MainWindow::on_disconnectButton_clicked()
 void MainWindow::on_stopListenButton_clicked()
 {
     tcpserver->stopListening();
+}
+
+void MainWindow::on_connectButton_clicked()
+{
+    QString ipAddress = ui->ipAddressTextBox->text();
+    int port = ui->portTextBox->text().toInt();
+    tcpserver->connectToHost(ipAddress, port);
 }

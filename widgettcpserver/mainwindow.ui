@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>DoIt Chatty</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPlainTextEdit" name="chatTextbox">
@@ -23,8 +23,11 @@
       <height>192</height>
      </rect>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>9</x>
@@ -37,7 +40,7 @@
      <item>
       <widget class="QLineEdit" name="nickTextBox">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="text">
         <string>QtNick</string>
@@ -63,7 +66,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>9</x>
@@ -84,11 +87,20 @@
        <property name="text">
         <string>Send Text</string>
        </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -101,7 +113,7 @@
      <item>
       <widget class="QLineEdit" name="ipAddressTextBox">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="text">
         <string>127.0.0.1</string>
@@ -111,7 +123,7 @@
      <item>
       <widget class="QLineEdit" name="portTextBox">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="text">
         <string>51345</string>
@@ -121,7 +133,7 @@
      <item>
       <widget class="QPushButton" name="connectButton">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="text">
         <string>Connect</string>
@@ -143,6 +155,35 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>sendTextBox</tabstop>
+  <tabstop>sendTextButton</tabstop>
+  <tabstop>ipAddressTextBox</tabstop>
+  <tabstop>portTextBox</tabstop>
+  <tabstop>nickTextBox</tabstop>
+  <tabstop>connectButton</tabstop>
+  <tabstop>disconnectButton</tabstop>
+  <tabstop>listenButton</tabstop>
+  <tabstop>stopListenButton</tabstop>
+  <tabstop>chatTextbox</tabstop>
+ </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>sendTextBox</sender>
+   <signal>returnPressed()</signal>
+   <receiver>sendTextButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>113</x>
+     <y>280</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>261</x>
+     <y>281</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
