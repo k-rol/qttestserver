@@ -38,7 +38,7 @@ void MainWindow::on_listenButton_clicked()
 
 void MainWindow::on_sendTextButton_clicked()
 {
-    string nickName = "" + ui->nickTextBox->text().toStdString() + "> ";
+    string nickName = "" + ui->nickTextBox->text().toStdString() + "";
     string textToSend = ui->sendTextBox->text().toStdString() + "\n";
     string wholeText = nickName+textToSend;
     tcpserver->writeSomething(wholeText);
@@ -50,7 +50,7 @@ void MainWindow::on_sendTextButton_clicked()
         textToAdd.remove(textToAdd.length()-1,1);
     }
 
-    ui->chatTextbox->appendPlainText(textToAdd.trimmed());
+    //ui->chatTextbox->appendPlainText(textToAdd.trimmed());
     ui->sendTextBox->clear();
 //
 
@@ -83,7 +83,7 @@ void MainWindow::setButtonEnabilities(QString set)
 */
 void MainWindow::setDisconnected()
 {
-    ui->disconnectButton->setEnabled(false);
+    //ui->disconnectButton->setEnabled(false);
     ui->sendTextButton->setEnabled(false);
     ui->connectButton->setEnabled(true);
     ui->portTextBox->setEnabled(true);

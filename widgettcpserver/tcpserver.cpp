@@ -89,6 +89,7 @@ void TcpServer::startRead()
     if (!IsACommand(readContent))
     {
         MainWindow *instanceMainWindow = static_cast<MainWindow*>(this->parent());
+
         instanceMainWindow->updateText(trimText(readContent));
     }
 
