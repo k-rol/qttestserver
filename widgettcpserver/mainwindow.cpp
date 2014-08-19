@@ -38,8 +38,10 @@ void MainWindow::on_listenButton_clicked()
 
 void MainWindow::on_sendTextButton_clicked()
 {
+
+    /*
     string nickName = "" + ui->nickTextBox->text().toStdString() + "";
-    string textToSend = ui->sendTextBox->text().toStdString() + "\n";
+    string textToSend = ui->sendTextBox->text().toStdString() + "";
     string wholeText = nickName+textToSend;
     tcpserver->writeSomething(wholeText);
 
@@ -51,8 +53,10 @@ void MainWindow::on_sendTextButton_clicked()
     }
 
     //ui->chatTextbox->appendPlainText(textToAdd.trimmed());
+
+    */
+    tcpserver->writeSomething(ui->sendTextBox->text().toStdString());
     ui->sendTextBox->clear();
-//
 
 }
 
@@ -136,7 +140,16 @@ void MainWindow::on_stopListenButton_clicked()
 
 void MainWindow::on_connectButton_clicked()
 {
+    //timer to put in there in case it doesnt connect*******
+
     QString ipAddress = ui->ipAddressTextBox->text();
     int port = ui->portTextBox->text().toInt();
+    tcpserver->nickName = ui->nickTextBox->text().toStdString();
     tcpserver->connectToHost(ipAddress, port);
+}
+
+void MainWindow::on_changeNickButton_clicked()
+{
+    tcpserver->nickName = ui->nickTextBox->text().toStdString();
+    tcpserver->sendNickName();
 }

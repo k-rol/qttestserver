@@ -33,6 +33,7 @@ void on_sendTextButton_clicked();
 void on_disconnectButton_clicked();
 void on_stopListenButton_clicked();
 void on_connectButton_clicked();
+void on_changeNickButton_clicked();
 };
 
 #endif // MAINWINDOW_H

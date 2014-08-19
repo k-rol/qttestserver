@@ -75,6 +75,7 @@ void TcpServer::connectionSignals()
     connect(qTcpSocket, SIGNAL(readyRead()),this, SLOT(startRead()));
     connect(qTcpSocket, SIGNAL(disconnected()),this,SLOT(disconnected()));
     connect(qTcpSocket, SIGNAL(aboutToClose()),this, SLOT(aboutToDisconnect()));
+    sendNickName();
 }
 
 /*
@@ -92,6 +93,17 @@ void TcpServer::startRead()
 
         instanceMainWindow->updateText(trimText(readContent));
     }
+
+}
+
+/*
+ * Sends current used username
+*/
+void TcpServer::sendNickName()
+{
+    string nickChangeString = "NICK|" + nickName;
+
+    qTcpSocket->write(nickChangeString.c_str());
 
 }
 
@@ -164,8 +176,9 @@ void TcpServer::nothingreally()
  */
 void TcpServer::writeSomething(string textToSend)
 {
-    QByteArray byteArray(textToSend.c_str(),textToSend.length());
-    qTcpSocket->write(byteArray);
+    //QByteArray byteArray(textToSend.c_str(),textToSend.length());
+    string wholeText = "TEXT|" + textToSend;
+    qTcpSocket->write(wholeText.c_str());
 }
 
 /*

@@ -18,8 +18,10 @@ public:
     void startListening(int port);
     void connectToHost(QString &ipAddressHost, int &port);
     void writeSomething(string textToSend);
+    void sendNickName();
     void disconnectIt();
     void stopListening();
+    string nickName;
     virtual ~TcpServer();
 
 private slots:
@@ -39,6 +41,7 @@ private:
     QTcpSocket *qTcpSocket;
 
     MainWindow *mainWindow;
+
 };
 
 #endif // TCPSERVER_H

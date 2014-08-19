@@ -31,45 +31,6 @@
     <property name="geometry">
      <rect>
       <x>9</x>
-      <y>40</y>
-      <width>291</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLineEdit" name="nickTextBox">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="text">
-        <string>QtNick</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="listenButton">
-       <property name="text">
-        <string>Listen</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="stopListenButton">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="text">
-        <string>Stop Listen</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>9</x>
       <y>269</y>
       <width>291</width>
       <height>25</height>
@@ -151,6 +112,64 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="changeNickButton">
+    <property name="geometry">
+     <rect>
+      <x>98</x>
+      <y>41</y>
+      <width>40</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Chg</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stopListenButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>224</x>
+      <y>41</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Stop Listen</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="listenButton">
+    <property name="geometry">
+     <rect>
+      <x>143</x>
+      <y>41</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Listen</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="nickTextBox">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>42</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>QtNick</string>
+    </property>
    </widget>
   </widget>
  </widget>
