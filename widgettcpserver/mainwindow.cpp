@@ -21,14 +21,30 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::filterText(QString &readContent)
+{
+    QRegExp reg(":\\)");
+    //if (readContent.)
+    readContent.count(reg);
+    QStringList splitText = readContent.split(reg);
+
+
+}
+
 void MainWindow::updateText(QString &readContent)
 {
-    ui->chatTextbox->appendPlainText(readContent);
+    ui->chatTextbox->append(readContent);
+}
+
+void MainWindow::insertEmoticon(QString emoString)
+{
+    //ui->chatTextbox->insertHtml(readContent); <img src='\smile.png'>
 }
 
 void MainWindow::systemMessages(QString msgSystem)
 {
-    ui->chatTextbox->appendPlainText(msgSystem);
+    ui->chatTextbox->append(msgSystem);
+    //ui->chatTextbox->appendPlainText(msgSystem);
 }
 
 void MainWindow::on_listenButton_clicked()

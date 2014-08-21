@@ -15,11 +15,13 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     void updateText(QString &readContant);
+    void filterText(QString &readContent);
     void systemMessages(QString msgSystem);
     void setButtonEnabilities(QString set);
     ~MainWindow();
 
 private:
+    void insertEmoticon(QString emoString);
     void setDisconnected();
     void setConnected();
     void setListening();

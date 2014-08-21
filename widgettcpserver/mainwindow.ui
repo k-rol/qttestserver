@@ -14,19 +14,6 @@
    <string>DoIt Chatty</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPlainTextEdit" name="chatTextbox">
-    <property name="geometry">
-     <rect>
-      <x>9</x>
-      <y>71</y>
-      <width>291</width>
-      <height>192</height>
-     </rect>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
@@ -171,6 +158,16 @@
      <string>QtNick</string>
     </property>
    </widget>
+   <widget class="QTextEdit" name="chatTextbox">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>71</y>
+      <width>291</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
@@ -184,7 +181,6 @@
   <tabstop>disconnectButton</tabstop>
   <tabstop>listenButton</tabstop>
   <tabstop>stopListenButton</tabstop>
-  <tabstop>chatTextbox</tabstop>
  </tabstops>
  <resources/>
  <connections>

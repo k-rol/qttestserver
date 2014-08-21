@@ -20,3 +20,6 @@ HEADERS  += mainwindow.h \
     tcpserver.h
 
 FORMS    += mainwindow.ui
+
+OTHER_FILES += \
+    smile.png
