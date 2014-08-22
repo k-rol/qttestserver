@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QTcpSocket>
 
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -23,22 +24,39 @@ MainWindow::~MainWindow()
 
 void MainWindow::filterText(QString &readContent)
 {
-    QRegExp reg(":\\)");
-    //if (readContent.)
-    readContent.count(reg);
-    QStringList splitText = readContent.split(reg);
-
-
+    //ui->chatTextbox->insertHtml(textDoc->toHtml());
 }
 
 void MainWindow::updateText(QString &readContent)
 {
-    ui->chatTextbox->append(readContent);
+    QRegExp reg(":\\)");
+    if (readContent.count(reg) >= 1)
+    {
+
+        int regCount = readContent.count(reg);
+
+        ui->chatTextbox->append(readContent);
+        ui->chatTextbox->moveCursor(QTextCursor::End, QTextCursor::MoveAnchor);
+        ui->chatTextbox->moveCursor(QTextCursor::StartOfLine, QTextCursor::MoveAnchor);
+
+        for (int i = 0; i < regCount; ++i) {
+            QTextCursor cursor(ui->chatTextbox->document()->find(reg,ui->chatTextbox->textCursor()));
+            if (!cursor.isNull())
+            {
+                cursor.insertHtml("<img src=\":/emoticon/smile.png\" >");
+
+            }
+        }
+    }
+    else
+        {
+            ui->chatTextbox->append(readContent);
+        }
 }
 
 void MainWindow::insertEmoticon(QString emoString)
 {
-    //ui->chatTextbox->insertHtml(readContent); <img src='\smile.png'>
+    //ui->chatTextbox->insertHtml(readContent); <img src='\smile.png'> <img src=\":/smile.png\"> <img src=":/emoticon/smile.png" />
 }
 
 void MainWindow::systemMessages(QString msgSystem)

@@ -21,5 +21,7 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-OTHER_FILES += \
-    smile.png
+OTHER_FILES +=
+
+RESOURCES += \
+    images.qrc
