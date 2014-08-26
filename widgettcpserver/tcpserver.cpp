@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <ui_mainwindow.h>
 #include <mainwindow.h>
+#include <qnetworkproxy.h>
 
 using namespace std;
 
@@ -14,10 +15,12 @@ TcpServer::TcpServer(QObject *parent) : QObject(parent), qTcpServer(0)
 {
     qTcpSocket = 0;
     qDebug() << "TcpServer instance created.";
+
+    QNetworkProxyFactory::setUseSystemConfiguration(true);
 }
 
 /*
- * Listen button was pressed and app will be read to do so
+ * Listen button was pressed and app will be ready to do so
  */
 void TcpServer::startListening(int port)
 {
@@ -42,6 +45,7 @@ void TcpServer::connectToHost(QString &ipAddressHost, int &port)
         qTcpSocket = new QTcpSocket(this);
         connect(qTcpSocket, SIGNAL(connected()),this, SLOT(connectionSignals()));
         qTcpSocket->connectToHost(hostIp, port);
+
     }
     else
     {
@@ -71,6 +75,8 @@ void TcpServer::connectionSignals()
     qDebug() << "Connected to " + qTcpSocket->peerAddress().toString() + " Succesfully.";
     updateUiText("Connected to " + qTcpSocket->peerAddress().toString() + " Succesfully.");
     setUIButtons(QString("setConnected"));
+
+    qDebug() << qTcpSocket->proxy().hostName();
 
     connect(qTcpSocket, SIGNAL(readyRead()),this, SLOT(startRead()));
     connect(qTcpSocket, SIGNAL(disconnected()),this,SLOT(disconnected()));
